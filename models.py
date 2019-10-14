@@ -8,10 +8,12 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
+    password = db.Column(db.String, nullable=False)
 
-    def __init__(self, username, email):
+    def __init__(self, username, email, password):
         self.username = username
         self.email = email
+        self.password = password
 
     def __repr__(self):
         return f'<id={self.id}, title={self.title}, url={self.url}>'
@@ -33,7 +35,7 @@ class Post(db.Model):
 if __name__ == '__main__':
     db.drop_all()
     db.create_all()
-    db.session.add(User(username="Flask", email="example@example.com"))
+    db.session.add(User(username="Flask", email="example@example.com", password="password"))
     db.session.add(Post(title="Test Post"))
     db.session.add(Post(title="Google", url="https://google.com"))
     db.session.commit()
