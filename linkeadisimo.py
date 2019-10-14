@@ -1,20 +1,18 @@
 #!/usr/bin/env python3
-from flask import Flask
-from database import db
+from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
+from app import app
 
-app = Flask(__name__)
+from models import User, Post
 
 @app.route('/')
 def index():
-    return 'linkeadisimo'
+    lp = Post.query.all()
+    return render_template('index.html', posts=lp)
 
 @app.route('/notfound')
 def notfound():
     return 'page not found'
-
-@app.teardown_appcontext
-def shutdown(exception=None):
-    db.remove()
 
 if __name__ == '__main__':
     app.run()
