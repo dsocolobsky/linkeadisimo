@@ -1,1 +1,7 @@
-{{publication.text}}
+{% if publication.is_text %}
+    <p>Text:</p>
+    {{ publication.text }}
+{% else %}
+    <p>URL:</p>
+    <a href="{{ publication.link }}">{{ publication.link }}</a>
+{% endif %}

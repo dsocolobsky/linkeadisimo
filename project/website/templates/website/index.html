@@ -1,7 +1,9 @@
+<a href="{% url 'submit' %}">Submit</a>
+
 {% if publications %}
 <ul>
     {% for pub in publications %}
-        <li><a href="{% url 'publication' pub.id %}">By {{pub.created_by}} on {{pub.date}}</a></li>
+        <li><a href="{% url 'publication' pub.id %}">By {{pub.created_by.username}} on {{pub.date}}</a></li>
     {% endfor %}
 
 </ul>
