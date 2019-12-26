@@ -1,3 +1,6 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{%static 'website/css/style.css' %}">
+
 <a href="{% url 'submit' %}">Submit</a>
 
 {% if publications %}
@@ -5,11 +8,10 @@
     {% for pub in publications %}
     <div id="{{ pub.id }}" class="publication">
         <div class="maintext">
-            <p>{{pub.votes}} - </p>
+            <span>{{pub.votes}} - </span>
             <a href={% if pub.is_text %} "{% url 'publication' pub.id %}" {% else %} {{pub.link}} {% endif %}>
                 {{pub.title}}</a> - <a href="{% url 'publication' pub.id %}">(comments)</a>
         </div>
-        <br>
         <div class="subtext">
             <p>By {{pub.created_by.username}} on {{pub.date}}</p>
         </div>
