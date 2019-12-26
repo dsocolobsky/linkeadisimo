@@ -5,3 +5,6 @@ class SubmitForm(forms.Form):
     url = forms.URLField(required=False)
     text = forms.CharField(label="Text", widget=forms.Textarea, required=False)
 
+class LoginForm(forms.Form):
+    username = forms.CharField(label="username")
+    password = forms.CharField(label="password", widget=forms.PasswordInput)

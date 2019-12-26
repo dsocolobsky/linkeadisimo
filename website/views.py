@@ -4,10 +4,10 @@ from django.template import loader
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import View
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate
 from django.contrib.auth.models import Permission, User
 from .models import Publication
-from .forms import SubmitForm
+from .forms import SubmitForm, LoginForm
 
 # Create your views here.
 def index(request):
@@ -41,7 +41,7 @@ class Submit(View):
 
     def post(self, request):
         form = SubmitForm(request.POST)
-        
+
         # TODO this probably should be checked in the frontend
         if not form.is_valid() or form.cleaned_data['text'] != '' and form.cleaned_data['url'] != '':
             return HttpResponseBadRequest('<p>Form was invalid</p>')
@@ -65,7 +65,19 @@ def logout_view(request):
 
 class Login(View):
     def get(self, request):
-        return render(request, 'website/login.html')
+        return render(request, 'website/login.html', {'form': LoginForm()})
 
     def post(self, request):
+        form = LoginForm(request.POST)
+        if not form.is_valid():
+            return HttpResponseBadRequest('<p>Login was invalid (server issue)</p>')
+
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+
+        if authenticate(request, username=username, password=password) is None:
+            return HttpResponseBadRequest('<p>Login invalid</p>')
+        else:
+            return HttpResponseRedirect('/')
+
         return HttpResponseBadRequest('<p>Not yet implemented</p>')
