@@ -10,6 +10,7 @@ class User(models.Model):
 
 class Publication(models.Model):
     is_text = models.BooleanField()
+    title = models.CharField(blank=False,max_length=128)
     link = models.URLField(blank=True, default="")
     text = models.TextField(blank=True, default="")
     votes = models.IntegerField(default=0)

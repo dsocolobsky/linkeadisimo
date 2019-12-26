@@ -3,7 +3,20 @@
 {% if publications %}
 <ul>
     {% for pub in publications %}
-        <li><a href="{% url 'publication' pub.id %}">By {{pub.created_by.username}} on {{pub.date}}</a></li>
+    <div id="{{ pub.id }}" class="publication">
+        <div class="maintext">
+            <p>{{pub.votes}} - </p>
+            <a href={% if pub.is_text %} "{% url 'publication' pub.id %}" {% else %} {{pub.link}} {% endif %}>
+                {{pub.title}}</a> - <a href="{% url 'publication' pub.id %}">(comments)</a>
+        </div>
+        <br>
+        <div class="subtext">
+            <p>By {{pub.created_by.username}} on {{pub.date}}</p>
+        </div>
+    </div>
+    <br>
+    <br>
+    <hline>
     {% endfor %}
 
 </ul>

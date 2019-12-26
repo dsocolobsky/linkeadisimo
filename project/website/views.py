@@ -32,6 +32,7 @@ def submit(request):
         return render(request, 'website/submit.html')
 
 def submitPOST(request):
+    title = request.POST['title']
     text = request.POST['text']
     url  = request.POST['url']
     user = User.objects.get(pk=1)
@@ -42,11 +43,11 @@ def submitPOST(request):
     if text == '':
         print("It's text")
         # We have to submit an URL
-        pub = Publication(is_text = False, link = url, created_by = user)
+        pub = Publication(is_text=False, title=title, link=url, created_by=user)
     else:
         print("It's url")
         # We have to submit the text
-        pub = Publication(is_text = True, text = text, created_by = user)
+        pub = Publication(is_text=True, title=title, text=text, created_by=user)
 
     pub.save()
     return HttpResponseRedirect(reverse('publication', args=(pub.id,)))
