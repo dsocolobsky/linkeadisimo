@@ -1,6 +1,7 @@
 # Created by https://www.gitignore.io
 .vscode
 .venv
+secret.py
 
 ### OSX ###
 .DS_Store

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from secret import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'sx@sd7*d^j%-+b#m7pz4s$2@6yrxr9li8ajwfx$t+xjo$lj4)8'
+SECRET_KEY = secret_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -77,9 +78,9 @@ WSGI_APPLICATION = 'linkeadisimo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'linkeadisimo',
-        'USER': 'linkeadisimo',
-        'PASSWORD': 'password',
+        'NAME': secret_database_name(),
+        'USER': secret_database_user(),
+        'PASSWORD': secret_database_password(),
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
