@@ -1,2 +1,3 @@
-# linkeadisimo
-Linkeadisimo es un link-aggregator escrito en Python y Flask
+Linkeadisimo
+==============
+Simple link aggregator written in Django
