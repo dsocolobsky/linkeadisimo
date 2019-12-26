@@ -4,7 +4,7 @@ from django.template import loader
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import View
-from django.contrib.auth import logout, authenticate
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import Permission, User
 from .models import Publication
 from .forms import SubmitForm, LoginForm
@@ -75,9 +75,12 @@ class Login(View):
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
 
-        if authenticate(request, username=username, password=password) is None:
+        user = authenticate(request, username=username, password=password)
+
+        if user is None:
             return HttpResponseBadRequest('<p>Login invalid</p>')
         else:
+            login(request, user)
             return HttpResponseRedirect('/')
 
         return HttpResponseBadRequest('<p>Not yet implemented</p>')

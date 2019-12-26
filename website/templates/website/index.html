@@ -4,7 +4,7 @@
 <a href="{% url 'submit' %}">Submit</a>
 
 {% if authenticated %}
-<a href="{% url 'logout_view' %}">Logout</a>
+<a href="{% url 'logout_view' %}">Logout ({{user.get_username}})</a>
 {% else %}
 <a href="{% url 'login' %}">Login</a>
 {% endif%}
