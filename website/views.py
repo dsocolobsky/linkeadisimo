@@ -3,8 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 from django.template import loader
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-
-from .models import User, Publication
+from django.contrib.auth.models import User
+from .models import Publication
 
 # Create your views here.
 def index(request):
