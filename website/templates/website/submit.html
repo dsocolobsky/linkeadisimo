@@ -1,19 +1,5 @@
 <form action="{% url 'submit' %}" method="post">
-{% csrf_token %}
-
-<input type="text" name="title" id="title">
-<label for="title">Title</label>
-
-<input type="url" name="url" id="url">
-<label for="url">URL</label>
-
-<br>
-<p>or</p>
-<br>
-
-<textarea name="text" id="text"></textarea>
-<label for="text">Write your text</label>
-
-<input type="submit" value="submit">
-
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="submit">
 </form>

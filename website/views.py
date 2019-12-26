@@ -7,6 +7,7 @@ from django.views import View
 from django.contrib.auth import logout
 from django.contrib.auth.models import Permission, User
 from .models import Publication
+from .forms import SubmitForm
 
 # Create your views here.
 def index(request):
@@ -36,16 +37,19 @@ def user(request, user_id):
 
 class Submit(View):
     def get(self, request):
-        return render(request, 'website/submit.html')
+        return render(request, 'website/submit.html', {'form': SubmitForm()})
 
     def post(self, request):
-        title = request.POST['title']
-        text = request.POST['text']
-        url  = request.POST['url']
-        user = User.objects.get(pk=1)
+        form = SubmitForm(request.POST)
+        
+        # TODO this probably should be checked in the frontend
+        if not form.is_valid() or form.cleaned_data['text'] != '' and form.cleaned_data['url'] != '':
+            return HttpResponseBadRequest('<p>Form was invalid</p>')
 
-        if text != '' and url != '':
-            return HttpResponseBadRequest('<p>You must only submit EITHER url OR text</p>')
+        title = form.cleaned_data['title']
+        text = form.cleaned_data['text']
+        url  = form.cleaned_data['url']
+        user = User.objects.get(pk=1)
 
         if text == '':
             pub = Publication(is_text=False, title=title, link=url, created_by=user)
