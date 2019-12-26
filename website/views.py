@@ -1,17 +1,26 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, HttpResponseNotFound
 from django.template import loader
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth import logout
+from django.contrib.auth.models import Permission, User
 from .models import Publication
 
 # Create your views here.
 def index(request):
     publications = Publication.objects.order_by('-date')
-    context = {
-        'publications': publications
-    }
+    if request.user.is_authenticated:
+        context = {
+            'publications': publications,
+            'authenticated': True,
+            'user': request.user
+        }
+    else:
+        context = {
+            'publications': publications,
+            'authenticated': False,
+        }
     return render(request, 'website/index.html', context)
 
 def publication(request, pub_id):
@@ -51,3 +60,10 @@ def submitPOST(request):
 
     pub.save()
     return HttpResponseRedirect(reverse('publication', args=(pub.id,)))
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+
+def login(request):
+    return HttpResponseNotFound()
