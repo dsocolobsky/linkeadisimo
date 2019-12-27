@@ -26,6 +26,7 @@ def index(request):
         }
     return render(request, 'website/index.html', context)
 
+
 def publication(request, pub_id):
     pub = get_object_or_404(Publication, pk=pub_id)
     context = {
@@ -33,8 +34,10 @@ def publication(request, pub_id):
     }
     return render(request, 'website/publication.html', context)
 
+
 def user(request, user_id):
     return HttpResponse('user')
+
 
 class Submit(View):
     @method_decorator(login_required)
@@ -51,7 +54,7 @@ class Submit(View):
 
         title = form.cleaned_data['title']
         text = form.cleaned_data['text']
-        url  = form.cleaned_data['url']
+        url = form.cleaned_data['url']
         user = request.user
 
         if text == '':
@@ -62,9 +65,11 @@ class Submit(View):
         pub.save()
         return HttpResponseRedirect(reverse('publication', args=(pub.id,)))
 
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
+
 
 class Login(View):
     def get(self, request):
@@ -88,5 +93,5 @@ class Login(View):
 
         return HttpResponseBadRequest('<p>Not yet implemented</p>')
 
-#def Register(View):
+# def Register(View):
 #    def get(self, request):

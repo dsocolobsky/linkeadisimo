@@ -1,33 +1,33 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{%static 'website/css/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'website/css/style.css' %}">
 
 <a href="{% url 'submit' %}">Submit</a>
 
 {% if authenticated %}
-<a href="{% url 'logout_view' %}">Logout ({{user.get_username}})</a>
+    <a href="{% url 'logout_view' %}">Logout ({{ user.get_username }})</a>
 {% else %}
-<a href="{% url 'login' %}">Login</a>
-{% endif%}
+    <a href="{% url 'login' %}">Login</a>
+{% endif %}
 
 {% if publications %}
-<ul>
-    {% for pub in publications %}
-    <div id="{{ pub.id }}" class="publication">
-        <div class="maintext">
-            <span>{{pub.votes}} - </span>
-            <a href={% if pub.is_text %} "{% url 'publication' pub.id %}" {% else %} {{pub.link}} {% endif %}>
-                {{pub.title}}</a> - <a href="{% url 'publication' pub.id %}">(comments)</a>
-        </div>
-        <div class="subtext">
-            <p>By {{pub.created_by.username}} on {{pub.date}}</p>
-        </div>
-    </div>
-    <br>
-    <br>
-    <hline>
-    {% endfor %}
+    <ul>
+        {% for pub in publications %}
+            <div id="{{ pub.id }}" class="publication">
+                <div class="maintext">
+                    <span>{{ pub.votes }} - </span>
+                    <a href={% if pub.is_text %} "{% url 'publication' pub.id %}" {% else %} {{ pub.link }} {% endif %}>
+                        {{ pub.title }}</a> - <a href="{% url 'publication' pub.id %}">(comments)</a>
+                </div>
+                <div class="subtext">
+                    <p>By {{ pub.created_by.username }} on {{ pub.date }}</p>
+                </div>
+            </div>
+            <br>
+            <br>
+            <hline>
+        {% endfor %}
 
-</ul>
+    </ul>
 {% else %}
-<p>This is empty</p>
+    <p>This is empty</p>
 {% endif %}
