@@ -49,18 +49,11 @@ class Submit(View):
         form = SubmitForm(request.POST)
 
         # TODO this probably should be checked in the frontend
-        if not form.is_valid() or form.cleaned_data['text'] != '' and form.cleaned_data['url'] != '':
+        if not form.is_valid():
             return HttpResponseBadRequest('<p>Form was invalid</p>')
 
-        title = form.cleaned_data['title']
-        text = form.cleaned_data['text']
-        url = form.cleaned_data['url']
-        user = request.user
-
-        if text == '':
-            pub = Publication(is_text=False, title=title, link=url, created_by=user)
-        else:
-            pub = Publication(is_text=True, title=title, text=text, created_by=user)
+        pub = Publication(title=form.cleaned_data['title'], link=form.cleaned_data['url'],
+                          text=form.cleaned_data['text'], created_by=request.user)
 
         pub.save()
         return HttpResponseRedirect(reverse('publication', args=(pub.id,)))

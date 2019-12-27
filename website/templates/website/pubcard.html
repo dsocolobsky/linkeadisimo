@@ -1,7 +1,7 @@
 <div id="{{ pub.id }}" class="publication">
     <div class="maintext">
         <span>{{ pub.votes }} - </span>
-        <a href={% if pub.is_text %} "{% url 'publication' pub.id %}" {% else %} {{ pub.link }} {% endif %}>
+        <a href={% if not pub.link %} "{% url 'publication' pub.id %}" {% else %} {{ pub.link }} {% endif %}>
             {{ pub.title }}</a> - <a href="{% url 'publication' pub.id %}">(comments)</a>
     </div>
     <div class="subtext">
