@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, HttpResponseNotFound
 from django.template import loader
 from django.shortcuts import get_object_or_404, render
@@ -6,6 +5,8 @@ from django.urls import reverse
 from django.views import View
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import Permission, User
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from .models import Publication
 from .forms import SubmitForm, LoginForm
 
@@ -36,9 +37,11 @@ def user(request, user_id):
     return HttpResponse('user')
 
 class Submit(View):
+    @method_decorator(login_required)
     def get(self, request):
         return render(request, 'website/submit.html', {'form': SubmitForm()})
 
+    @method_decorator(login_required)
     def post(self, request):
         form = SubmitForm(request.POST)
 
@@ -49,7 +52,7 @@ class Submit(View):
         title = form.cleaned_data['title']
         text = form.cleaned_data['text']
         url  = form.cleaned_data['url']
-        user = User.objects.get(pk=1)
+        user = request.user
 
         if text == '':
             pub = Publication(is_text=False, title=title, link=url, created_by=user)
