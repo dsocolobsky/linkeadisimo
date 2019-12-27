@@ -12,21 +12,11 @@
 {% if publications %}
     <ul>
         {% for pub in publications %}
-            <div id="{{ pub.id }}" class="publication">
-                <div class="maintext">
-                    <span>{{ pub.votes }} - </span>
-                    <a href={% if pub.is_text %} "{% url 'publication' pub.id %}" {% else %} {{ pub.link }} {% endif %}>
-                        {{ pub.title }}</a> - <a href="{% url 'publication' pub.id %}">(comments)</a>
-                </div>
-                <div class="subtext">
-                    <p>By {{ pub.created_by.username }} on {{ pub.date }}</p>
-                </div>
-            </div>
+            {% include "website/pubcard.html" with pub=pub %}
             <br>
             <br>
-            <hline>
+            </hline>
         {% endfor %}
-
     </ul>
 {% else %}
     <p>This is empty</p>

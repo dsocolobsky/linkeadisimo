@@ -1,0 +1,10 @@
+<div id="{{ pub.id }}" class="publication">
+    <div class="maintext">
+        <span>{{ pub.votes }} - </span>
+        <a href={% if pub.is_text %} "{% url 'publication' pub.id %}" {% else %} {{ pub.link }} {% endif %}>
+            {{ pub.title }}</a> - <a href="{% url 'publication' pub.id %}">(comments)</a>
+    </div>
+    <div class="subtext">
+        <p>By {{ pub.created_by.username }} on {{ pub.date }}</p>
+    </div>
+</div>
