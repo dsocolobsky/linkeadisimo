@@ -1,14 +1,14 @@
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, HttpResponseNotFound
-from django.template import loader
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from django.views import View
-from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.models import Permission, User
-from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from .models import Publication
+from django.views import View
+
 from .forms import SubmitForm, LoginForm
+from .models import Publication
+
 
 # Create your views here.
 def index(request):
@@ -87,3 +87,6 @@ class Login(View):
             return HttpResponseRedirect('/')
 
         return HttpResponseBadRequest('<p>Not yet implemented</p>')
+
+#def Register(View):
+#    def get(self, request):
