@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 
-from .forms import SubmitForm, LoginForm
+from .forms import SubmitForm, LoginForm, CommentForm
 from .models import Publication
 
 
@@ -30,9 +30,13 @@ def index(request):
 def publication(request, pub_id):
     pub = get_object_or_404(Publication, pk=pub_id)
     context = {
-        'publication': pub
+        'publication': pub,
+        'form': CommentForm()
     }
     return render(request, 'website/publication.html', context)
+
+def comment(request):
+
 
 
 def user(request, user_id):
