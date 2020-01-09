@@ -13,3 +13,14 @@ class Publication(models.Model):
 
     def __str__(self):
         return f"[{self.link}] ({self.text})"
+
+
+class Comment(models.Model):
+    text = models.TextField(blank=False, max_length=8192)
+    votes = models.IntegerField(default=0)
+    created_by = models.ForeignKey(User, on_delete=models.SET(None))
+    publication = models.ForeignKey(Publication, on_delete=models.SET(None))
+    parent = models.ForeignKey('self', on_delete=models.SET(None), blank=True, null=True, default=None)
+
+    def __str__(self):
+        return self.text
