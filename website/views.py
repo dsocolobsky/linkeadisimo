@@ -29,8 +29,10 @@ def index(request):
 
 def publication(request, pub_id):
     pub = get_object_or_404(Publication, pk=pub_id)
+    comments = pub.comment_set.all()
     context = {
         'publication': pub,
+        'comments': comments,
         'form': CommentForm()
     }
     return render(request, 'website/publication.html', context)

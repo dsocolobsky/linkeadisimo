@@ -1,5 +1,12 @@
 {% include "website/pubcard.html" with pub=publication %}
 
+<h3>Comments:</h3>
+<ul>
+{% for com in comments %}
+    <li>{{ com.text }} - by {{ com.created_by.username }}</li>
+{% endfor %}
+</ul>
+
 <p>Post a comment:</p>
 <form action="{% url 'comment' %}" method="post">
     {% csrf_token %}
