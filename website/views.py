@@ -107,6 +107,7 @@ class Login(View):
             login(request, user)
             return HttpResponseRedirect('/')
 
+
 @login_required
 @csrf_protect
 def upvote(request):
@@ -123,7 +124,6 @@ def upvote(request):
     pub.save()
 
     return HttpResponseRedirect('/')
-
 
 # def Register(View):
 #    def get(self, request):
