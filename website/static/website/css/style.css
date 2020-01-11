@@ -1,4 +1,55 @@
-.subtext p {
+#main {
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 600px;
+    max-width: 900px;
+}
+
+nav {
+    background-color: lightgrey;
+}
+
+#publications {
+    margin-top: 20px;
+    background-color: whitesmoke;
+}
+
+footer {
+    background-color: lightgrey;
+}
+
+.publication {
+    border-style: double;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.publication .leftside {
+    display: inline-block;
+}
+
+.publication .leftside .votes {
+    color: #6DDCBD;
+}
+
+.publication .leftside .uparrow {
+    color: grey;
+    margin-left: -4px;
+    cursor: pointer;
+}
+
+.publication .leftside .uparrow:hover {
+    color: orangered;
+}
+
+.publication .maintext {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.publication .subtext p {
+    margin-top: 2px;
+    margin-left: 40px;
     color: lightgray;
     height: 2px;
 }

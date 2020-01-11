@@ -1,5 +1,6 @@
-let prevShownForm = null;
+console.log('ohaio');
 
+let prevShownForm = null;
 function init_comment(com) {
     let answer_button = com.querySelector('.answer_comment');
     let form = com.querySelector('.comment_form');
@@ -12,4 +13,14 @@ function init_comment(com) {
     });
 }
 
+function init_publications(pub) {
+    let uparrow = pub.querySelector('.uparrow');
+
+    uparrow.addEventListener('click', () => {
+        console.log('Clicked ' + pub.id);
+    });
+}
+
 document.querySelectorAll('.comment').forEach(init_comment);
+
+document.querySelectorAll('.publication').forEach(init_publications);

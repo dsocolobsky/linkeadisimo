@@ -1,23 +1,29 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'website/css/style.css' %}">
 
-<a href="{% url 'submit' %}">Submit</a>
+<div id="main">
 
-{% if authenticated %}
-    <a href="{% url 'logout_view' %}">Logout ({{ user.get_username }})</a>
-{% else %}
-    <a href="{% url 'login' %}">Login</a>
-{% endif %}
+    <nav>
+        <a href="{% url 'submit' %}">Submit</a>
 
-{% if publications %}
-    <ul>
+        {% if authenticated %}
+            <a href="{% url 'logout_view' %}">Logout ({{ user.get_username }})</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </nav>
+
+    <div id="publications">
         {% for pub in publications %}
-            {% include "website/pubcard.html" with pub=pub %}
-            <br>
-            <br>
-            </hline>
+        {% include "website/pubcard.html" with pub=pub %}
+        <br>
         {% endfor %}
-    </ul>
-{% else %}
-    <p>This is empty</p>
-{% endif %}
+    </div>
+
+    <footer>
+        By Dylan Socolobsky - 2020
+    </footer>
+
+</div>
+
+<script src="{% static 'website/js/linkeadisimo.js' %}"></script>
