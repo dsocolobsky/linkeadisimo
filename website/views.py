@@ -1,5 +1,6 @@
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -8,7 +9,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 import json as json
 
-from .forms import SubmitForm, LoginForm, CommentForm
+from .forms import SubmitForm, LoginForm, CommentForm, RegisterForm
 from .models import Publication, Comment
 
 
@@ -93,6 +94,7 @@ class Login(View):
 
     def post(self, request):
         form = LoginForm(request.POST)
+        form.full_clean()
         if not form.is_valid():
             return HttpResponseBadRequest('<p>Login was invalid (server issue)</p>')
 
@@ -125,5 +127,31 @@ def upvote(request):
 
     return HttpResponseRedirect('/')
 
-# def Register(View):
-#    def get(self, request):
+
+class Register(View):
+    def get(self, request):
+        return render(request, 'website/register.html', {'form': RegisterForm()})
+
+    def post(self, request):
+        form = LoginForm(request.POST)
+        if not form.is_valid():
+            return HttpResponseBadRequest('<p>Login was invalid (server issue)</p>')
+
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+
+        if User.objects.filter(username=username).exists():
+            return HttpResponseBadRequest('<p>Username already exists!</p>')
+
+        usr = User.objects.create_user(username=username, password=password)
+        if usr is None:
+            return HttpResponseBadRequest('<p>Error creating user somehow</p>')
+
+        usr.save()
+
+        usr_login = authenticate(request, username=username, password=password)
+        if usr_login is None:
+            return HttpResponseBadRequest('<p>Login invalid</p>')
+        else:
+            login(request, usr_login)
+            return HttpResponseRedirect('/')

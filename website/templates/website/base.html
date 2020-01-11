@@ -23,6 +23,7 @@
                 <a href="{% url 'logout_view' %}">Logout ({{ user.get_username }})</a>
             {% else %}
                 <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
             {% endif %}
         </div>
     </nav>
