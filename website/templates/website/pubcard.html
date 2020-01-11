@@ -1,14 +1,22 @@
+{% load humanize %}
+
 <div id="{{ pub.id }}" class="publication">
     <div class="leftside">
         <span class="votes">{{ pub.votes }}</span>
         <span class="uparrow">↑</span>
     </div>
-    <div class="maintext">
+    <div class="rightside">
+        <div class="maintext">
+            <a class="title"
+               href={% if not pub.link %} "{% url 'publication' pub.id %}" {% else %} {{ pub.link }} {% endif %}>
+                {{ pub.title }}</a>
 
-        <a href={% if not pub.link %} "{% url 'publication' pub.id %}" {% else %} {{ pub.link }} {% endif %}>
-            {{ pub.title }}</a> - <a href="{% url 'publication' pub.id %}">(comments)</a>
-    </div>
-    <div class="subtext">
-        <p>By {{ pub.created_by.username }} on {{ pub.date }}</p>
+            <div class="buttons">
+                <a href="{% url 'publication' pub.id %}">comments</a>
+            </div>
+        </div>
+        <div class="subtext">
+            <p>By {{ pub.created_by.username }} {{ pub.timestamp|naturaltime }}</p>
+        </div>
     </div>
 </div>
