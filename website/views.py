@@ -12,7 +12,7 @@ from .models import Publication, Comment
 
 # Create your views here.
 def index(request):
-    publications = Publication.objects.order_by('-date')
+    publications = Publication.objects.order_by('-timestamp')
     if request.user.is_authenticated:
         context = {
             'publications': publications,
@@ -29,11 +29,8 @@ def index(request):
 
 def publication(request, pub_id):
     pub = get_object_or_404(Publication, pk=pub_id)
-    comments = pub.comment_set.all()
-    #comments = Comment.objects.all()
     context = {
         'publication': pub,
-        'comments': comments,
         'form': CommentForm()
     }
     return render(request, 'website/publication.html', context)
@@ -49,7 +46,8 @@ def comment(request):
 
     pubid = request.POST['pubid']
     text = form.cleaned_data['text']
-    parent = Comment.objects.get(pk=request.POST['parent'])
+    parentid = request.POST['parent']
+    parent = Comment.objects.get(pk=parentid) if parentid != '' else None
     pub = get_object_or_404(Publication, pk=pubid)
 
     the_comment = Comment(text=text, publication=pub, created_by=request.user, parent=parent)
@@ -107,7 +105,6 @@ class Login(View):
             login(request, user)
             return HttpResponseRedirect('/')
 
-        return HttpResponseBadRequest('<p>Not yet implemented</p>')
 
 # def Register(View):
 #    def get(self, request):

@@ -14,7 +14,7 @@
     <input type="submit" value="submit">
 </form>
 
-{% recursetree comments %}
+{% recursetree publication.comments.all %}
     {% include "website/comment_t.html" with com=node pub=publication %}
 
     {% if not node.is_leaf_node %}
@@ -25,6 +25,5 @@
     <br>
     {% endif %}
 {% endrecursetree %}
-</ul>
 
 <script src="{% static 'website/js/linkeadisimo.js' %}"></script>

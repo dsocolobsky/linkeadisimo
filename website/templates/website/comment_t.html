@@ -1,0 +1,17 @@
+<div id="{{ com.id }}" class="comment" style="margin-left: {%  widthratio node.level 1 40 %}">
+    <div class="toptext">
+        <a class="votes">{{ com.votes }}</a>
+        <a class="info">By {{ com.created_by.username }}</a>
+        <a class="answer_comment">Answer</a>
+    </div>
+
+    <div class="content">{{ com }}</div>
+
+    <form class="comment_form" action="{% url 'comment' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" value="{{ publication.id }}" name="pubid">
+        <input type="hidden" value="{{ com.id }}" name="parent">
+        <input type="submit" value="submit">
+    </form>
+</div>
