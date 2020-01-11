@@ -14,7 +14,7 @@ from .models import Publication, Comment
 
 # Create your views here.
 def index(request):
-    publications = Publication.objects.order_by('-timestamp')
+    publications = Publication.objects.order_by('-votes')
     if request.user.is_authenticated:
         context = {
             'publications': publications,
