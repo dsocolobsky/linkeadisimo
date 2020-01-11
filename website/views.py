@@ -5,6 +5,8 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
+import json as json
 
 from .forms import SubmitForm, LoginForm, CommentForm
 from .models import Publication, Comment
@@ -104,6 +106,23 @@ class Login(View):
         else:
             login(request, user)
             return HttpResponseRedirect('/')
+
+@login_required
+@csrf_protect
+def upvote(request):
+    if request.method != "POST":
+        return HttpResponseRedirect('/')
+
+    postdata = json.loads(request.body.decode('utf-8'))
+
+    pub = Publication.objects.get(pk=postdata['id'])
+    if pub is None:
+        return HttpResponseBadRequest('<p>Upvote invalid</p>')
+
+    pub.votes += 1
+    pub.save()
+
+    return HttpResponseRedirect('/')
 
 
 # def Register(View):

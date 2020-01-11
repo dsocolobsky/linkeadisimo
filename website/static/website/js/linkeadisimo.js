@@ -18,6 +18,18 @@ function init_publications(pub) {
 
     uparrow.addEventListener('click', () => {
         console.log('Clicked ' + pub.id);
+
+        axios({
+            method: 'post',
+            url: 'http://localhost:8000/upvote',
+            headers: {
+                "X-CSRFToken": csrftoken,
+            },
+            data: {
+                id: pub.id,
+            }
+        }).then(data => location.reload())
+            .catch(err => console.log(err))
     });
 }
 
