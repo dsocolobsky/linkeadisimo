@@ -1,29 +1,30 @@
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'website/css/style.css' %}">
-
-{% include "website/pubcard.html" with pub=publication %}
-
+{% extends 'website/base.html' %}
 {% load mptt_tags %}
 
-<h3>Post a comment</h3>
-<form action="{% url 'comment' %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="hidden" value="{{ publication.id }}" name="pubid">
-    <input type="hidden" value="" name="parent">
-    <input type="submit" value="submit">
-</form>
+{% block content %}
 
-{% recursetree publication.comments.all %}
-    {% include "website/comment_t.html" with com=node pub=publication %}
+    {% include "website/pubcard.html" with pub=publication %}
 
-    {% if not node.is_leaf_node %}
-        {{ children }}
-    {% endif %}
+    <form id="parentform" action="{% url 'comment' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" value="{{ publication.id }}" name="pubid">
+        <input type="hidden" value="" name="parent">
+        <input type="submit" value="Post a Comment">
+    </form>
 
-    {% if node.is_root_node %}
-    <br>
-    {% endif %}
-{% endrecursetree %}
+    <div id="comments">
+        {% recursetree publication.comments.all %}
+            {% include "website/comment_t.html" with com=node pub=publication %}
 
-<script src="{% static 'website/js/linkeadisimo.js' %}"></script>
+            {% if not node.is_leaf_node %}
+                {{ children }}
+            {% endif %}
+
+            {% if node.is_root_node %}
+                <br>
+            {% endif %}
+        {% endrecursetree %}
+    </div>
+
+{% endblock %}

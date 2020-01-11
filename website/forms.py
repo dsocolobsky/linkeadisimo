@@ -13,4 +13,5 @@ class LoginForm(forms.Form):
 
 
 class CommentForm(forms.Form):
-    text = forms.CharField(label="text", widget=forms.Textarea)
+    text = forms.CharField(label="", widget=forms.Textarea(attrs={'cols': '80', 'rows': '6'}))
+

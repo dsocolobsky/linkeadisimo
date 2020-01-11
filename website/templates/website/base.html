@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'website/css/style.css' %}">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="main">
+    <nav>
+        <div class="leftside">
+            <a href="/">Homepage</a>
+            <a href="{% url 'submit' %}">Submit</a>
+        </div>
+
+
+        <div class="rightside">
+            {% if authenticated %}
+                <a href="{% url 'logout_view' %}">Logout ({{ user.get_username }})</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        By Dylan Socolobsky - 2020
+    </footer>
+</div>
+
+</body>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="{% static 'website/js/csrf.js' %}"></script>
+<script src="{% static 'website/js/linkeadisimo.js' %}"></script>
+
+</html>
+

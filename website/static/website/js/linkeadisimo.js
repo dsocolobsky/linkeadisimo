@@ -8,7 +8,7 @@ function init_comment(com) {
     answer_button.addEventListener('click', () => {
         if (prevShownForm != null)
             prevShownForm.style.display = 'none';
-        form.style.display = 'inline';
+        form.style.display = 'flex';
         prevShownForm = form;
     });
 }

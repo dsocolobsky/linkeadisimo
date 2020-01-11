@@ -1,29 +1,8 @@
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'website/css/style.css' %}">
+{% extends 'website/base.html' %}
 
-<body>
-    <nav>
-        <a href="{% url 'submit' %}">Submit</a>
-
-        {% if authenticated %}
-            <a href="{% url 'logout_view' %}">Logout ({{ user.get_username }})</a>
-        {% else %}
-            <a href="{% url 'login' %}">Login</a>
-        {% endif %}
-    </nav>
-
-    <div id="publications">
-        {% for pub in publications %}
+{% block content %}
+    {% for pub in publications %}
         {% include "website/pubcard.html" with pub=pub %}
         <br>
-        {% endfor %}
-    </div>
-
-    <footer>
-        By Dylan Socolobsky - 2020
-    </footer>
-</body>
-
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="{% static 'website/js/csrf.js' %}"></script>
-<script src="{% static 'website/js/linkeadisimo.js' %}"></script>
+    {% endfor %}
+{% endblock %}
