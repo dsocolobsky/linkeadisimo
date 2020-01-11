@@ -1,8 +1,7 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'website/css/style.css' %}">
 
-<div id="main">
-
+<body>
     <nav>
         <a href="{% url 'submit' %}">Submit</a>
 
@@ -23,8 +22,7 @@
     <footer>
         By Dylan Socolobsky - 2020
     </footer>
-
-</div>
+</body>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="{% static 'website/js/csrf.js' %}"></script>

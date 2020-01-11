@@ -6,22 +6,17 @@
 
 html,body {
     font-family: "sans-serif";
-    height: 100%;
+    height: 98%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 body > * {
     flex-shrink: 0;
-}
-
-#main {
-    margin-left: auto;
-    margin-right: auto;
-    min-width: 600px;
-    max-width: 900px;
-    height: 100%;
 }
 
 nav {
@@ -33,9 +28,8 @@ nav {
 #publications {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    /*padding-top: 10px;
-    padding-left: 20px;*/
+    padding-top: 10px;
+    padding-left: 20px;
     flex: 1;
     background-color: whitesmoke;
 }
@@ -45,8 +39,7 @@ footer {
 }
 
 .publication {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 8px 4px 4px 4px;
     display: flex;
 }
 
@@ -55,32 +48,28 @@ footer {
 }
 
 .publication .leftside .votes {
-    color: #6DDCBD;
-    display: inline-block;
+    color: #609ab6;
     text-align: right;
-    width: auto;
     min-width: 21px;
 }
 
 .publication .leftside .uparrow {
     color: grey;
-    margin-left: -4px;
     cursor: pointer;
 }
 
 .publication .leftside .uparrow:hover {
-    color: orangered;
+    color: limegreen;
 }
 
 .publication .rightside {
     display: flex;
+    margin-left: 12px;
     flex-direction: column;
 }
 
 .publication .maintext {
-    margin-left: 4px;
     display: flex;
-    justify-content: space-between;
 }
 
 .publication .maintext .title {
@@ -92,11 +81,14 @@ footer {
 }
 
 .publication .maintext .buttons {
+    display: flex;
     font-size: 12px;
 }
 
 .publication .maintext .buttons a {
     color: inherit;
+    margin-top: 4px;
+    margin-left: 4px;
     text-decoration: none;
 }
 
