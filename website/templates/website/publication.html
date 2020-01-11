@@ -3,6 +3,8 @@
 
 {% include "website/pubcard.html" with pub=publication %}
 
+{% load mptt_tags %}
+
 <h3>Post a comment</h3>
 <form action="{% url 'comment' %}" method="post">
     {% csrf_token %}
@@ -12,25 +14,17 @@
     <input type="submit" value="submit">
 </form>
 
-<h3>Comments:</h3>
-{% for com in comments %}
-    <div class="comment">
-        <div class="toptext">
-            <a class="votes">{{ com.votes }}</a>
-            <a class="info">By {{ com.created_by.username }}</a>
-            <a class="answer_comment">Answer</a>
-        </div>
+{% recursetree comments %}
+    {% include "website/comment_t.html" with com=node pub=publication %}
 
-        <div class="content">{{ com.text }}</div>
+    {% if not node.is_leaf_node %}
+        {{ children }}
+    {% endif %}
 
-        <form class="comment_form" action="{% url 'comment' %}" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="hidden" value="{{ publication.id }}" name="pubid">
-            <input type="hidden" value="{{ com.id }}" name="parent">
-            <input type="submit" value="submit">
-        </form>
-    </div>
-{% endfor %}
+    {% if node.is_root_node %}
+    <br>
+    {% endif %}
+{% endrecursetree %}
+</ul>
 
 <script src="{% static 'website/js/linkeadisimo.js' %}"></script>

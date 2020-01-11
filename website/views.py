@@ -30,6 +30,7 @@ def index(request):
 def publication(request, pub_id):
     pub = get_object_or_404(Publication, pk=pub_id)
     comments = pub.comment_set.all()
+    #comments = Comment.objects.all()
     context = {
         'publication': pub,
         'comments': comments,
@@ -39,20 +40,21 @@ def publication(request, pub_id):
 
 
 # POST method for posting a comment to a certain publication
+@login_required
 def comment(request):
     form = CommentForm(request.POST)
 
     if not form.is_valid():
         return HttpResponseBadRequest('<p>Form was invalid</p>')
 
-    text = form.cleaned_data['text']
     pubid = request.POST['pubid']
-    parent = request.POST['parent']
-
-    # TODO parent is supposed to be None here but might not in the future!
+    text = form.cleaned_data['text']
+    parent = Comment.objects.get(pk=request.POST['parent'])
     pub = get_object_or_404(Publication, pk=pubid)
-    the_comment = Comment(text=text, publication=pub, created_by=request.user)
+
+    the_comment = Comment(text=text, publication=pub, created_by=request.user, parent=parent)
     the_comment.save()
+
     return HttpResponseRedirect(reverse('publication', args=(pubid,)))
 
 

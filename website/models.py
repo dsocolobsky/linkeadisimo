@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from mptt.models import MPTTModel, TreeForeignKey
 
 
 class Publication(models.Model):
@@ -15,12 +16,16 @@ class Publication(models.Model):
         return f"[{self.link}] ({self.text})"
 
 
-class Comment(models.Model):
+class Comment(MPTTModel):
     text = models.TextField(blank=False, max_length=8192)
     votes = models.IntegerField(default=0)
     created_by = models.ForeignKey(User, on_delete=models.SET(None))
+    date = models.DateTimeField(default=timezone.now)
     publication = models.ForeignKey(Publication, on_delete=models.SET(None))
-    parent = models.ForeignKey('self', on_delete=models.SET(None), blank=True, null=True, default=None)
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 
     def __str__(self):
         return self.text
+
+    class MPTTMeta:
+        order_insertion_by = ['date']
