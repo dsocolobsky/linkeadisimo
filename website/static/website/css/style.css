@@ -2,3 +2,33 @@
     color: lightgray;
     height: 2px;
 }
+
+.comment {
+    background-color: whitesmoke;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.comment .toptext {
+    background-color: lightgrey;
+}
+
+.comment .toptext .votes {
+    color: lightskyblue;
+    font-size: 19px;
+}
+
+.comment .toptext .info {
+    font-size: 14px;
+}
+
+.comment .toptext .links {
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.comment form {
+    margin: 0;
+    padding: 0;
+    display: none;
+}
