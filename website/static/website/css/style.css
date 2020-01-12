@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-html,body {
+html, body {
     font-family: "sans-serif";
     height: 100%;
     width: 100%;
@@ -46,7 +46,6 @@ nav .rightside {
 }
 
 
-
 .content {
     display: flex;
     flex-direction: column;
@@ -54,6 +53,27 @@ nav .rightside {
     padding-left: 20px;
     flex: 1;
     background-color: whitesmoke;
+}
+
+@media only screen and (max-width: 800px) {
+    html, body {
+        margin-left: 0;
+        margin-right: 0;
+        justify-content: flex-start;
+    }
+
+    #main {
+        height: 98%;
+        width: 98%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content {
+        width: 96%;
+        padding-left: 2px;
+        padding-top: 4px;
+    }
 }
 
 footer {
@@ -189,4 +209,21 @@ PUBLICATION
 
 .comment form {
     display: none;
+}
+
+@media only screen and (max-width: 800px) or (-webkit-min-device-pixel-ratio: 2) {
+    #parentform {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        max-width: 50%;
+    }
+
+    .comment {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        margin-bottom: 10px
+        overflow-wrap: break-word;
+    }
 }
