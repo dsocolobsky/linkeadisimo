@@ -11,5 +11,6 @@ urlpatterns = [
     path('login', views.Login.as_view(), name="login"),
     path('comment', views.comment, name="comment"),
     path('upvote', views.upvote, name="upvote"),
+    path('upvote_comment', views.upvote_comment, name="upvote_comment"),
     path('register', views.Register.as_view(), name="register")
 ]

@@ -2,7 +2,13 @@
     <div class="toptext">
         <div class="leftside">
             <span class="votes">{{ com.votes }}</span>
-            <span class="uparrow">↑</span>
+            {% if request.user in com.voters.all or request.user == com.created_by %}
+                <span class="alreadyvoted">↑</span>
+            {% elif request.user.is_authenticated %}
+                <span class="uparrow">↑</span>
+            {% else %}
+                <span></span>
+            {% endif %}
         </div>
 
         <div class="rightside">

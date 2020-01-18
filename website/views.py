@@ -123,9 +123,35 @@ def upvote(request):
         return HttpResponseBadRequest('<p>Upvote invalid</p>')
 
     pub.votes += 1
+    pub.voters.add(request.user)
     pub.save()
 
     return HttpResponseRedirect('/')
+
+
+@login_required
+@csrf_protect
+def upvote_comment(request):
+    if request.method != "POST":
+        return HttpResponseRedirect('/')
+
+    postdata = json.loads(request.body.decode('utf-8'))
+
+    com = Comment.objects.get(pk=postdata['id'])
+    if com is None:
+        return HttpResponseBadRequest('<p>Upvote invalid</p>')
+
+    pub = com.publication
+    if pub is None:
+        return HttpResponseBadRequest('<p>Upvote invalid</p>')
+
+    com.votes += 1
+    com.voters.add(request.user)
+    com.save()
+
+    Comment.objects.rebuild()
+
+    return HttpResponseRedirect(reverse('publication', args=(pub.id,)))
 
 
 class Register(View):

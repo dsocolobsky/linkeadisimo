@@ -104,6 +104,10 @@ footer {
     color: limegreen;
 }
 
+.alreadyvoted {
+    color: darkgreen;
+}
+
 .publication .rightside {
     display: flex;
     margin-left: 12px;

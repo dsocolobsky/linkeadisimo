@@ -3,7 +3,13 @@
 <div id="{{ pub.id }}" class="publication">
     <div class="leftside">
         <span class="votes">{{ pub.votes }}</span>
-        <span class="uparrow">↑</span>
+        {% if request.user in pub.voters.all or request.user == pub.created_by %}
+            <span class="alreadyvoted">↑</span>
+        {% elif request.user.is_authenticated %}
+            <span class="uparrow">↑</span>
+        {% else %}
+            <span></span>
+        {% endif %}
     </div>
     <div class="rightside">
         <div class="maintext">
