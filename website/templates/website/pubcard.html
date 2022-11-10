@@ -1,6 +1,6 @@
 {% load humanize %}
 
-<div id="{{ pub.id }}" class="publication">
+<li id="{{ pub.id }}" class="publication">
     <div class="leftside">
         <span class="votes">{{ pub.votes }}</span>
         {% if request.user in pub.voters.all or request.user == pub.created_by %}
@@ -16,14 +16,10 @@
             <a class="title"
                href={% if not pub.link %} "{% url 'publication' pub.id %}" {% else %} {{ pub.link }} {% endif %}>
                 {{ pub.title }}</a>
-
-            <div class="buttons">
-                <a href="{% url 'publication' pub.id %}">comments</a>
-                <a href="#">test</a>
-            </div>
         </div>
         <div class="subtext">
-            <p>By {{ pub.created_by.username }} {{ pub.timestamp|naturaltime }}</p>
+            <span>By {{ pub.created_by.username }} {{ pub.timestamp|naturaltime }} |</span>
+            <a href="{% url 'publication' pub.id %}">comments</a>
         </div>
     </div>
-</div>
+</li>

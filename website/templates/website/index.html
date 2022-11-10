@@ -1,8 +1,10 @@
 {% extends 'website/base.html' %}
 
 {% block content %}
+    <ol>
     {% for pub in publications %}
         {% include "website/pubcard.html" with pub=pub %}
         <br>
     {% endfor %}
+    </ol>
 {% endblock %}

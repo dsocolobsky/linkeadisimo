@@ -1,39 +1,26 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+html,body {
+    height: 90%;
 }
 
-html, body {
-    font-family: "sans-serif";
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    min-width: 850px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-body > * {
-    flex-shrink: 0;
-}
-
-#main {
-    height: 98%;
-    width: 65%;
-    display: flex;
-    flex-direction: column;
+body > footer {
+    background-color: lightgrey;
+    margin-top: 0;
 }
 
 nav {
     display: flex;
+    padding: 0.10em 1em;
     justify-content: space-between;
     background-color: lightgrey;
 }
 
 nav .leftside {
     display: flex;
+}
+
+nav .leftside span {
+    margin-left: 5px;
+    color: #808080;
 }
 
 nav .leftside a {
@@ -45,43 +32,23 @@ nav .rightside {
     justify-content: flex-end;
 }
 
+nav .rightside span {
+    margin-left: 5px;
+}
 
-.content {
-    display: flex;
-    flex-direction: column;
+nav .rightside a {
+    margin-left: 5px;
+}
+
+main {
     padding-top: 10px;
-    padding-left: 20px;
-    flex: 1;
-    background-color: whitesmoke;
-}
+    background-color: #f9f9f9;
 
-@media only screen and (max-width: 800px) {
-    html, body {
-        margin-left: 0;
-        margin-right: 0;
-        justify-content: flex-start;
-    }
-
-    #main {
-        height: 98%;
-        width: 98%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .content {
-        width: 96%;
-        padding-left: 2px;
-        padding-top: 4px;
-    }
-}
-
-footer {
-    background-color: lightgrey;
+    height:auto !important;
+    min-height:100%;
 }
 
 .publication {
-    margin: 8px 4px 4px 4px;
     display: flex;
 }
 
@@ -142,10 +109,18 @@ footer {
     text-decoration: underline;
 }
 
-.publication .subtext p {
-    display: flex;
-    justify-content: flex-start;
-    color: lightgray;
+.publication .subtext {
+    font-size: 0.8em;
+}
+
+.publication .subtext span {
+    color: #808080;
+    margin-top: 0;
+}
+
+.publication .subtext a {
+    color: #808080;
+    text-decoration: underline;
 }
 
 /*
@@ -156,22 +131,12 @@ PUBLICATION
 
 
 #parentform {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    max-width: 50%;
-    margin-top: 25px;
-    margin-bottom: 10px;
-}
-
-#parentform input[type="submit"] {
-    max-width: 50%;
+    margin: auto auto auto 2%;
 }
 
 #comments {
-    display: flex;
-    flex-direction: column;
     margin-top: 10px;
+    margin-left: 2%;
 }
 
 .comment {
