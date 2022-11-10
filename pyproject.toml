@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "linkeadisimo"
+version = "0.1.0"
+description = "A simple link aggregator"
+authors = ["Dylan Socolobsky <dsocolobsky@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^4.1.3"
+django-mptt = "^0.14.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.10.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
