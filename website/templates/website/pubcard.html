@@ -11,7 +11,7 @@
                 {{ pub.title }}</a>
         </div>
         <div class="subtext">
-            <span>By {{ pub.created_by.username }} {{ pub.timestamp|naturaltime }} |</span>
+            <span>By {{ pub.created_by.username }} {{ pub.created_at|naturaltime }} |</span>
             <a href="{% url 'publication' pub.id %}">
                 {% if pub.comments.count == 0 %}
                     no

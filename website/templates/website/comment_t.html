@@ -1,6 +1,8 @@
+{% load humanize %}
+
 <div id="{{ com.id }}" class="comment" style="margin-left: {% widthratio com.level 1 3 %}%">
     <div class="toptext">
-        <span class="info">By {{ com.created_by.username }} | </span>
+        <span class="info">By {{ com.created_by.username }} {{ com.created_at|naturaltime }} | </span>
         <div class="buttons">
             <a class="answer_comment">answer</a>
         </div>
