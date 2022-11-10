@@ -1,5 +1,4 @@
 {% extends 'website/base.html' %}
-{% load mptt_tags %}
 
 {% block content %}
 
@@ -14,17 +13,9 @@
     </form>
 
     <div id="comments">
-        {% recursetree publication.comments.all %}
-            {% include "website/comment_t.html" with com=node pub=publication %}
-
-            {% if not node.is_leaf_node %}
-                {{ children }}
-            {% endif %}
-
-            {% if node.is_root_node %}
-                <br>
-            {% endif %}
-        {% endrecursetree %}
+        {% for comment in publication.top_level_comments.all %}
+            {% include "website/comment_t.html" with com=comment pub=publication %}
+        {% endfor %}
     </div>
 
 {% endblock %}

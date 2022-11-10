@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'mptt',
     'django_extensions'
 ]
 
@@ -118,3 +117,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_URL = '/login'
+
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'

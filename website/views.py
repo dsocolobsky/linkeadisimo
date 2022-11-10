@@ -15,7 +15,7 @@ from .models import Publication, Comment
 
 # Create your views here.
 def index(request):
-    publications = Publication.objects.order_by('-votes')
+    publications = Publication.objects.order_by('-created_at')
     if request.user.is_authenticated:
         context = {
             'publications': publications,
@@ -51,9 +51,11 @@ def comment(request):
     text = form.cleaned_data['text']
     parentid = request.POST['parent']
     parent = Comment.objects.get(pk=parentid) if parentid != '' else None
+    level = parent.level + 1 if parent is not None else 0
     pub = get_object_or_404(Publication, pk=pubid)
 
-    the_comment = Comment(text=text, publication=pub, created_by=request.user, parent=parent)
+    print(f'Saving comment with parent {parentid}')
+    the_comment = Comment(text=text, publication=pub, created_by=request.user, parent_comment=parent, level=level)
     the_comment.save()
 
     return HttpResponseRedirect(reverse('publication', args=(pubid,)))

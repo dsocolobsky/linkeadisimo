@@ -31,3 +31,7 @@
         <input type="submit" value="submit">
     </form>
 </div>
+
+{% for child_comment in com.comments.all %}
+    {% include "website/comment_t.html" with com=child_comment pub=pub %}
+{% endfor %}
