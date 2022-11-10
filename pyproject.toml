@@ -12,6 +12,7 @@ django-mptt = "^0.14.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.10.0"
+django-extensions = "^3.2.1"
 
 [build-system]
 requires = ["poetry-core"]
