@@ -151,15 +151,8 @@ PUBLICATION
     display: flex;
     justify-content: left;
     background-color: slategray;
-}
-
-.comment .toptext .rightside {
-    display: flex;
-    margin-left: 12px;
-}
-
-.comment .toptext .rightside .buttons a {
-    margin-left: 10px;
+    color: #cdcdcd;
+    padding-left: 0.5em;
 }
 
 .comment .toptext .info {
@@ -174,6 +167,7 @@ PUBLICATION
 
 .comment .text {
     background-color: lightgrey;
+    padding-left: 0.5em;
 }
 
 .comment form {
@@ -192,7 +186,36 @@ PUBLICATION
         display: flex;
         flex-direction: column;
         margin-top: 10px;
-        margin-bottom: 10px
+        margin-bottom: 10px;
         overflow-wrap: break-word;
     }
+}
+
+/*
+##########################
+   LOGIN FORM
+##########################
+ */
+
+.main-form {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.main-form input[type='submit'] {
+    margin: auto;
+}
+
+.submit-form {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);
+}
+
+.submit-form input[type='submit'] {
+    margin: auto;
 }

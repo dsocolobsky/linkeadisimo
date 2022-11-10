@@ -20,7 +20,7 @@ class CommentForm(forms.Form):
 class RegisterForm(forms.Form):
     username = forms.CharField(label="username")
     password = forms.CharField(label="password", widget=forms.PasswordInput)
-    confirm_password = forms.CharField(label="password", widget=forms.PasswordInput)
+    confirm_password = forms.CharField(label="confirm password", widget=forms.PasswordInput)
 
     class Meta:
         model = User
