@@ -12,7 +12,14 @@
         </div>
         <div class="subtext">
             <span>By {{ pub.created_by.username }} {{ pub.timestamp|naturaltime }} |</span>
-            <a href="{% url 'publication' pub.id %}">comments</a>
+            <a href="{% url 'publication' pub.id %}">
+                {% if pub.comments.count == 0 %}
+                    no
+                {% else %}
+                    {{ pub.comments.count }}
+                {% endif %}
+                comments
+            </a>
         </div>
     </div>
 </li>
