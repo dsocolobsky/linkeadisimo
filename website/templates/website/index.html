@@ -3,8 +3,9 @@
 {% block content %}
     <ol>
     {% for pub in publications %}
-        {% include "website/pubcard.html" with pub=pub %}
-        <br>
+        <li>
+            {% include "website/pubcard.html" with pub=pub %}
+        </li>
     {% endfor %}
     </ol>
 {% endblock %}

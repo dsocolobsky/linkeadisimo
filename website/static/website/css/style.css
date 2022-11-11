@@ -52,6 +52,14 @@ main {
     display: flex;
 }
 
+li {
+    list-style-type: none;
+}
+
+li .publication {
+    margin-top: 1em;
+}
+
 .leftside {
     display: flex;
 }
@@ -129,6 +137,9 @@ PUBLICATION
 ##########################
  */
 
+.publication-content p {
+    margin-left: 1em;
+}
 
 #parentform {
     margin: auto auto auto 2%;

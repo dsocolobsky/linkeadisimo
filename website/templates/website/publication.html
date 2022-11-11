@@ -2,15 +2,21 @@
 
 {% block content %}
 
-    {% include "website/pubcard.html" with pub=publication %}
+    <article class="publication-content">
+        {% include "website/pubcard.html" with pub=publication %}
+
+        <p>
+            {{ publication.text }}
+        </p>
+    </article>
 
     <form id="parentform" action="{% url 'comment' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="hidden" value="{{ publication.id }}" name="pubid">
-        <input type="hidden" value="" name="parent">
-        <input type="submit" value="Post a Comment">
-    </form>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" value="{{ publication.id }}" name="pubid">
+            <input type="hidden" value="" name="parent">
+            <input type="submit" value="Post a Comment">
+        </form>
 
     <div id="comments">
         {% for comment in publication.top_level_comments.all %}
