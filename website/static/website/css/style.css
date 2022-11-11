@@ -183,6 +183,11 @@ PUBLICATION
 
 .comment form {
     display: none;
+    flex-direction: column;
+}
+
+.comment form input[type='submit'] {
+    max-width: 10em;
 }
 
 @media only screen and (max-width: 800px) or (-webkit-min-device-pixel-ratio: 2) {
