@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.decorators.csrf import csrf_protect, csrf_exempt
+from django.views.decorators.csrf import csrf_protect
 import json as json
 
 from .forms import SubmitForm, LoginForm, CommentForm, RegisterForm
@@ -39,26 +39,34 @@ def publication(request, pub_id):
     return render(request, 'website/publication.html', context)
 
 
-# POST method for posting a comment to a certain publication
-@login_required
-def comment(request):
-    form = CommentForm(request.POST)
+class CommentView(View):
+    @method_decorator(login_required)
+    def post(self, request):
+        form = CommentForm(request.POST)
 
-    if not form.is_valid():
-        return HttpResponseBadRequest('<p>Form was invalid</p>')
+        if not form.is_valid():
+            return HttpResponseBadRequest('<p>Form was invalid</p>')
 
-    pubid = request.POST['pubid']
-    text = form.cleaned_data['text']
-    parentid = request.POST['parent']
-    parent = Comment.objects.get(pk=parentid) if parentid != '' else None
-    level = parent.level + 1 if parent is not None else 0
-    pub = get_object_or_404(Publication, pk=pubid)
+        pubid = request.POST['pubid']
+        text = form.cleaned_data['text']
+        parentid = request.POST['parent']
+        parent = Comment.objects.get(pk=parentid) if parentid != '' else None
+        level = parent.level + 1 if parent is not None else 0
+        pub = get_object_or_404(Publication, pk=pubid)
 
-    print(f'Saving comment with parent {parentid}')
-    the_comment = Comment(text=text, publication=pub, created_by=request.user, parent_comment=parent, level=level)
-    the_comment.save()
+        print(f'Saving comment with parent {parentid}')
+        the_comment = Comment(text=text, publication=pub, created_by=request.user, parent_comment=parent, level=level)
+        the_comment.save()
 
-    return HttpResponseRedirect(reverse('publication', args=(pubid,)))
+        return HttpResponseRedirect(reverse('publication', args=(pubid,)))
+
+    @method_decorator(login_required)
+    def delete(self, request, comment_id):
+        comment = Comment.objects.get(pk=comment_id)
+        if comment.created_by.id != request.user.id:
+            return HttpResponseBadRequest('Unauthorized')
+        comment.delete_comment()
+        return HttpResponse(comment.text)  # Will return 'Deleted Comment'
 
 
 def user(request, user_id):

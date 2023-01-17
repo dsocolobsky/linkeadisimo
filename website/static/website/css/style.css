@@ -181,6 +181,10 @@ PUBLICATION
     padding-left: 0.5em;
 }
 
+.comment .text.deleted {
+    color: rgba(128, 128, 128, 0.75);
+}
+
 .comment form {
     display: none;
     flex-direction: column;
