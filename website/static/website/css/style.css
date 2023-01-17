@@ -185,7 +185,7 @@ PUBLICATION
     color: rgba(128, 128, 128, 0.75);
 }
 
-.comment form {
+.comment .comment_form {
     display: none;
     flex-direction: column;
 }

@@ -17,6 +17,10 @@ class CommentForm(forms.Form):
     text = forms.CharField(label="", widget=forms.Textarea(attrs={'cols': '80', 'rows': '6'}))
 
 
+class EditCommentForm(forms.Form):
+    text = forms.CharField(label="", widget=forms.Textarea(attrs={'cols': '50', 'rows': '6'}))
+
+
 class RegisterForm(forms.Form):
     username = forms.CharField(label="username")
     password = forms.CharField(label="password", widget=forms.PasswordInput)

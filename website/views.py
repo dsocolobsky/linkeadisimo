@@ -9,7 +9,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_protect
 import json as json
 
-from .forms import SubmitForm, LoginForm, CommentForm, RegisterForm
+from .forms import SubmitForm, LoginForm, CommentForm, RegisterForm, EditCommentForm
 from .models import Publication, Comment
 
 
@@ -67,6 +67,29 @@ class CommentView(View):
             return HttpResponseBadRequest('Unauthorized')
         comment.delete_comment()
         return HttpResponse(comment.text)  # Will return 'Deleted Comment'
+
+
+def edit_comment(request, comment_id):
+    # TODO very inefficient, we should avoid a DB hit for this GET. Solve in frontend
+    if request.method == 'GET':
+        comment = Comment.objects.get(pk=comment_id)
+        context = {
+            'comment_id': comment_id,
+            'form': EditCommentForm(initial={'text': comment.text})
+        }
+        return render(request, 'website/comment_edit.html', context)
+    elif request.method == 'POST':
+        form = EditCommentForm(request.POST)
+        if form.is_valid():
+            new_text = form.cleaned_data['text']
+            comment = Comment.objects.get(pk=comment_id)
+            if comment.created_by.id != request.user.id:
+                return HttpResponseBadRequest("Unauthorized")
+            comment.text = new_text
+            comment.save()
+            return render(request, 'website/comment_text.html', {'com': comment})
+        else:
+            return HttpResponseBadRequest('Invalid Method')
 
 
 def user(request, user_id):

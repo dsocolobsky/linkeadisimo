@@ -7,16 +7,19 @@
             <a class="answer_comment">answer</a>
             <span> | </span>
             {% if com.created_by.id == user.id %}
-            <a class="delete_comment"
-               hx-delete="/comment/{{ com.id }}" hx-target="#comment-{{com.id}} > .text"
-               hx-confirm="Are you sure you want to delete this comment?" hx-swap="innerHTML">delete</a>
+                {% if not com.deleted %}
+                    <a hx-get="/comment/{{ com.id }}/edit" hx-target="#comment-{{com.id}} > .text" hx-swap="outerHMTL">
+                        edit
+                    </a>
+                {% endif %}
+                <a class="delete_comment"
+                   hx-delete="/comment/{{ com.id }}" hx-target="#comment-{{com.id}} > .text"
+                   hx-confirm="Are you sure you want to delete this comment?" hx-swap="innerHTML">delete</a>
             {% endif %}
         </div>
     </div>
 
-    <div class="text {% if com.deleted %}deleted{% endif %}">
-        {{ com }}
-    </div>
+    {% include "website/comment_text.html" with com=com %}
 
     <form class="comment_form" action="{% url 'comment' %}" method="post">
         {% csrf_token %}

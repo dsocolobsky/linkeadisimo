@@ -1,0 +1,7 @@
+<form class="comment_edit_form" hx-post="{% url 'comment_edit' comment_id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" value="{{ publication.id }}" name="pubid">
+    <input type="hidden" value="{{ com.id }}" name="parent">
+    <input type="submit" value="Send">
+</form>
