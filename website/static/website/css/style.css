@@ -5,6 +5,8 @@ html,body {
 body > footer {
     background-color: lightgrey;
     margin-top: 0;
+    padding-bottom: 0.5em;
+    text-align: center;
 }
 
 nav {
