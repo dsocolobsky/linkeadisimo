@@ -158,7 +158,9 @@ class Login(View):
             )
         else:
             login(request, user)
-            return HttpResponseRedirect("/")
+            response = HttpResponse()
+            response["HX-Redirect"] = "/"
+            return response
 
 
 class Register(View):
@@ -195,4 +197,6 @@ class Register(View):
             return render(request, "website/register.html", {"form": form})
         else:
             login(request, usr_login)
-            return HttpResponseRedirect("/")
+            response = HttpResponse()
+            response["HX-Redirect"] = "/"
+            return response
