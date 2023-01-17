@@ -23,7 +23,7 @@
 
     {% include "website/comment_text.html" with com=com %}
 
-    <form class="comment_form" action="{% url 'comment' %}" method="post">
+    <form class="comment_form" hx-post="{% url 'comment' %}">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="hidden" value="{{ publication.id }}" name="pubid">

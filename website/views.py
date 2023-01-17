@@ -60,8 +60,9 @@ class CommentView(View):
             level=level,
         )
         the_comment.save()
-
-        return HttpResponseRedirect(reverse("publication", args=(pubid,)))
+        return render(
+            request, "website/comment_t.html", {"com": the_comment, "pub": pub}
+        )
 
     @method_decorator(login_required)
     def delete(self, request, comment_id):
