@@ -31,6 +31,9 @@ def index(request):
     return render(request, "website/pages/index.html", context)
 
 
+def health(request):
+    return HttpResponse(status=HTTPStatus.OK)
+
 def publication(request, pub_id):
     pub = get_object_or_404(Publication, pk=pub_id)
     context = {"publication": pub, "form": CommentForm()}
