@@ -7,6 +7,7 @@ from django.utils import timezone
 class Publication(models.Model):
     title = models.CharField(blank=False, max_length=128)
     link = models.URLField(blank=True, default="")
+    domain = models.CharField(blank=True, default="", max_length=128)
     text = models.TextField(blank=True, default="", max_length=8192)
     created_at = models.DateTimeField(default=timezone.now)
     created_by = models.ForeignKey(User, on_delete=models.SET(None), default=None)

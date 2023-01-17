@@ -103,6 +103,13 @@ li .publication {
     text-decoration: underline;
 }
 
+.publication .maintext .domain {
+    color: #cdcdcd;
+    font-size: 0.8em;
+    margin-left: 0.5em;
+    padding-top: 0.2em;
+}
+
 .buttons {
     display: flex;
     font-size: 12px;

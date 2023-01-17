@@ -1,3 +1,5 @@
+from urllib.parse import urlparse
+
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -6,8 +8,6 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.decorators.csrf import csrf_protect
-import json as json
 
 from .forms import SubmitForm, LoginForm, CommentForm, RegisterForm, EditCommentForm
 from .models import Publication, Comment
@@ -113,9 +113,12 @@ class Submit(View):
         if not form.is_valid():
             return HttpResponseBadRequest("<p>Form was invalid</p>")
 
+        link = form.cleaned_data["url"]
+        domain = urlparse(link).netloc
         pub = Publication(
             title=form.cleaned_data["title"],
-            link=form.cleaned_data["url"],
+            link=link,
+            domain=domain,
             text=form.cleaned_data["text"],
             created_by=request.user,
         )

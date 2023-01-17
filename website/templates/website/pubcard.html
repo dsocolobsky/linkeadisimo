@@ -9,6 +9,9 @@
             <a class="title"
                href={% if not pub.link %} "{% url 'publication' pub.id %}" {% else %} {{ pub.link }} {% endif %}>
                 {{ pub.title }}</a>
+            {% if pub.domain %}
+                <span class="domain">({{ pub.domain }})</span>
+            {% endif %}
         </div>
         <div class="subtext">
             <span>By </span>
