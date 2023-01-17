@@ -133,6 +133,10 @@ li .publication {
     text-decoration: underline;
 }
 
+.publication .subtext a.ownuser {
+    color: #9cd07e;
+}
+
 /*
 ##########################
 PUBLICATION
@@ -172,10 +176,26 @@ PUBLICATION
     font-size: 14px;
 }
 
+.comment .toptext .info a {
+    color: #cdcdcd;
+}
+
+.comment .toptext .info a.ownuser {
+    color: #9cd07e;
+}
+
+.comment .toptext .info a:hover {
+    text-decoration: underline;
+}
+
 .comment .toptext a {
     font-size: 12px;
     text-decoration: none;
     cursor: pointer;
+}
+
+.comment .toptext a:hover {
+    text-decoration: underline;
 }
 
 .comment .text {

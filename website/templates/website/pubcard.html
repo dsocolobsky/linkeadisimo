@@ -11,7 +11,11 @@
                 {{ pub.title }}</a>
         </div>
         <div class="subtext">
-            <span>By {{ pub.created_by.username }} {{ pub.created_at|naturaltime }} |</span>
+            <span>By </span>
+            <a href="#" class="{% if pub.created_by.id == user.id %}ownuser{% endif %}">
+                {{ pub.created_by.username }}
+            </a>
+            <span>{{ pub.created_at|naturaltime }} |</span>
             <a href="{% url 'publication' pub.id %}">
                 {% if pub.comments.count == 0 %}
                     no

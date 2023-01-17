@@ -2,19 +2,25 @@
 
 <div id="comment-{{ com.id }}" class="comment" style="margin-left: {% widthratio com.level 1 3 %}%">
     <div class="toptext">
-        <span class="info">By {{ com.created_by.username }} {{ com.created_at|naturaltime }} | </span>
+        <div class="info">
+            <span>By </span>
+            <a href="#" class="{% if com.created_by.id == user.id %}ownuser{% endif %}">
+                {{ com.created_by.username }}
+            </a>
+            <span>{{ com.created_at|naturaltime }} | </span>
+        </div>
         {% if user.id %}
             <div class="buttons">
                 <a class="answer_comment">answer</a>
-                <span> | </span>
                 {% if com.created_by.id == user.id %}
                     {% if not com.deleted %}
-                        <a hx-get="/comment/{{ com.id }}/edit" hx-target="#comment-{{com.id}} > .text" hx-swap="outerHMTL">
+                        <a hx-get="/comment/{{ com.id }}/edit" hx-target="#comment-{{ com.id }} > .text"
+                           hx-swap="outerHMTL">
                             edit
                         </a>
                     {% endif %}
                     <a class="delete_comment"
-                       hx-delete="/comment/{{ com.id }}" hx-target="#comment-{{com.id}} > .text"
+                       hx-delete="/comment/{{ com.id }}" hx-target="#comment-{{ com.id }} > .text"
                        hx-confirm="Are you sure you want to delete this comment?" hx-swap="innerHTML">delete</a>
                 {% endif %}
             </div>
