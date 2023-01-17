@@ -28,13 +28,13 @@ def index(request):
             "publications": publications,
             "authenticated": False,
         }
-    return render(request, "website/index.html", context)
+    return render(request, "website/pages/index.html", context)
 
 
 def publication(request, pub_id):
     pub = get_object_or_404(Publication, pk=pub_id)
     context = {"publication": pub, "form": CommentForm()}
-    return render(request, "website/publication.html", context)
+    return render(request, "website/pages/publication.html", context)
 
 
 class CommentView(View):
@@ -62,7 +62,7 @@ class CommentView(View):
         )
         the_comment.save()
         return render(
-            request, "website/comment_t.html", {"com": the_comment, "pub": pub}
+            request, "website/components/comment/comment.html", {"com": the_comment, "pub": pub}
         )
 
     @method_decorator(login_required)
@@ -82,7 +82,7 @@ def edit_comment(request, comment_id):
             "comment_id": comment_id,
             "form": EditCommentForm(initial={"text": comment.text}),
         }
-        return render(request, "website/comment_edit.html", context)
+        return render(request, "website/components/comment/comment_edit.html", context)
     elif request.method == "POST":
         form = EditCommentForm(request.POST)
         if form.is_valid():
@@ -92,7 +92,7 @@ def edit_comment(request, comment_id):
                 return HttpResponseBadRequest("Unauthorized")
             comment.text = new_text
             comment.save()
-            return render(request, "website/comment_text.html", {"com": comment})
+            return render(request, "website/components/comment/comment_text.html", {"com": comment})
         else:
             return HttpResponseBadRequest("Invalid Method")
 
@@ -104,7 +104,7 @@ def user(request, user_id):
 class Submit(View):
     @method_decorator(login_required)
     def get(self, request):
-        return render(request, "website/submit.html", {"form": SubmitForm()})
+        return render(request, "website/pages/submit.html", {"form": SubmitForm()})
 
     @method_decorator(login_required)
     def post(self, request):
@@ -135,7 +135,7 @@ def logout_view(request):
 
 class Login(View):
     def get(self, request):
-        return render(request, "website/login.html", {"form": LoginForm()})
+        return render(request, "website/pages/login.html", {"form": LoginForm()})
 
     def post(self, request):
         form = LoginForm(request.POST)
@@ -152,7 +152,7 @@ class Login(View):
             form.add_error("username", "invalid username or password")
             return render(
                 request,
-                "website/login_form.html",
+                "website/components/login_form.html",
                 {"form": form},
                 status=HTTPStatus.UNPROCESSABLE_ENTITY,
             )
@@ -165,7 +165,7 @@ class Login(View):
 
 class Register(View):
     def get(self, request):
-        return render(request, "website/register.html", {"form": RegisterForm()})
+        return render(request, "website/pages/register.html", {"form": RegisterForm()})
 
     def post(self, request):
         form = RegisterForm(request.POST)
@@ -179,7 +179,7 @@ class Register(View):
             form.add_error("username", "Username already exists")
             return render(
                 request,
-                "website/register_form.html",
+                "website/components/register_form.html",
                 {"form": form},
                 status=HTTPStatus.UNPROCESSABLE_ENTITY,
             )
@@ -187,14 +187,14 @@ class Register(View):
         usr = User.objects.create_user(username=username, password=password)
         if usr is None:
             form.add_error("username", "Unknown error. Please try again.")
-            return render(request, "website/register.html", {"form": form})
+            return render(request, "website/pages/register.html", {"form": form})
 
         usr.save()
 
         usr_login = authenticate(request, username=username, password=password)
         if usr_login is None:
             form.add_error("username", "Unknown error. Please try logging in manually.")
-            return render(request, "website/register.html", {"form": form})
+            return render(request, "website/pages/register.html", {"form": form})
         else:
             login(request, usr_login)
             response = HttpResponse()

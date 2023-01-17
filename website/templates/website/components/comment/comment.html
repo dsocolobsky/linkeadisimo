@@ -1,0 +1,30 @@
+{% load humanize %}
+
+<div id="comment-{{ com.id }}" class="comment" style="margin-left: {% widthratio com.level 1 3 %}%">
+    <div class="toptext">
+        <div class="info">
+            <span>By </span>
+            <a href="#" class="{% if com.created_by.id == user.id %}ownuser{% endif %}">
+                {{ com.created_by.username }}
+            </a>
+            <span>{{ com.created_at|naturaltime }} | </span>
+        </div>
+        {% if user.id %}
+            {% include "website/components/comment/comment_buttons.html" with com=com %}
+        {% endif %}
+    </div>
+
+    {% include "website/components/comment/comment_text.html" with com=com %}
+
+    <form class="comment_form" hx-post="{% url 'comment' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" value="{{ publication.id }}" name="pubid">
+        <input type="hidden" value="{{ com.id }}" name="parent">
+        <input type="submit" value="submit">
+    </form>
+</div>
+
+{% for child_comment in com.comments.all %}
+    {% include "website/components/comment/comment.html" with com=child_comment pub=pub %}
+{% endfor %}

@@ -3,7 +3,7 @@
 {% block content %}
 
     <article class="publication-content">
-        {% include "website/pubcard.html" with pub=publication %}
+        {% include "website/components/pubcard.html" with pub=publication %}
 
         <p>
             {{ publication.text }}
@@ -20,7 +20,7 @@
 
     <div id="comments">
         {% for comment in publication.top_level_comments.all %}
-            {% include "website/comment_t.html" with com=comment pub=publication %}
+            {% include "website/components/comment/comment.html" with com=comment pub=publication %}
         {% endfor %}
     </div>
 
