@@ -20,9 +20,13 @@ class Publication(models.Model):
 
 class Comment(models.Model):
     text = models.TextField(blank=False, max_length=8192)
-    publication = models.ForeignKey(Publication, on_delete=models.CASCADE, related_name='comments')
+    publication = models.ForeignKey(
+        Publication, on_delete=models.CASCADE, related_name="comments"
+    )
     level = models.PositiveSmallIntegerField(default=0)
-    parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, related_name='comments', blank=True, null=True)
+    parent_comment = models.ForeignKey(
+        "self", on_delete=models.CASCADE, related_name="comments", blank=True, null=True
+    )
     deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
     created_by = models.ForeignKey(User, on_delete=models.SET(None), default=None)
@@ -34,7 +38,6 @@ class Comment(models.Model):
         if self.deleted:
             return
         self.deleted = True
-        self.text = 'Deleted Comment'
+        self.text = "Deleted Comment"
         self.save()
         return self
-

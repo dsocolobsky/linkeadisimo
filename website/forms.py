@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class SubmitForm(forms.Form):
-    title = forms.CharField(label='Title', max_length=128)
+    title = forms.CharField(label="Title", max_length=128)
     url = forms.URLField(required=False)
     text = forms.CharField(label="Text", widget=forms.Textarea, required=False)
 
@@ -14,21 +14,27 @@ class LoginForm(forms.Form):
 
 
 class CommentForm(forms.Form):
-    text = forms.CharField(label="", widget=forms.Textarea(attrs={'cols': '80', 'rows': '6'}))
+    text = forms.CharField(
+        label="", widget=forms.Textarea(attrs={"cols": "80", "rows": "6"})
+    )
 
 
 class EditCommentForm(forms.Form):
-    text = forms.CharField(label="", widget=forms.Textarea(attrs={'cols': '50', 'rows': '6'}))
+    text = forms.CharField(
+        label="", widget=forms.Textarea(attrs={"cols": "50", "rows": "6"})
+    )
 
 
 class RegisterForm(forms.Form):
     username = forms.CharField(label="username")
     password = forms.CharField(label="password", widget=forms.PasswordInput)
-    confirm_password = forms.CharField(label="confirm password", widget=forms.PasswordInput)
+    confirm_password = forms.CharField(
+        label="confirm password", widget=forms.PasswordInput
+    )
 
     class Meta:
         model = User
-        fields = ['username', 'password']
+        fields = ["username", "password"]
 
     def clean(self):
         cleaned_data = super().clean()
