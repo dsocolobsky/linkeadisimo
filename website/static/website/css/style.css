@@ -246,7 +246,7 @@ PUBLICATION
 ##########################
  */
 
-.main-form {
+.main-form form {
     position: absolute;
     left: 50%;
     top: 30%;
@@ -256,6 +256,14 @@ PUBLICATION
 
 .main-form input[type='submit'] {
     margin: auto;
+}
+
+.main-form span {
+    position: absolute;
+}
+
+.main-form .errorlist {
+    color: red;
 }
 
 .submit-form {

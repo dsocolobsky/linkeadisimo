@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from urllib.parse import urlparse
 
 from django.contrib.auth import login, logout, authenticate
@@ -142,13 +143,19 @@ class Login(View):
         if not form.is_valid():
             return HttpResponseBadRequest("<p>Login was invalid (server issue)</p>")
 
-        username = form.cleaned_data["username"]
-        password = form.cleaned_data["password"]
-
-        user = authenticate(request, username=username, password=password)
-
+        user = authenticate(
+            request,
+            username=form.cleaned_data["username"],
+            password=form.cleaned_data["password"],
+        )
         if user is None:
-            return HttpResponseBadRequest("<p>Login invalid</p>")
+            form.add_error("username", "invalid username or password")
+            return render(
+                request,
+                "website/login_form.html",
+                {"form": form},
+                status=HTTPStatus.UNPROCESSABLE_ENTITY,
+            )
         else:
             login(request, user)
             return HttpResponseRedirect("/")
@@ -159,7 +166,7 @@ class Register(View):
         return render(request, "website/register.html", {"form": RegisterForm()})
 
     def post(self, request):
-        form = LoginForm(request.POST)
+        form = RegisterForm(request.POST)
         if not form.is_valid():
             return HttpResponseBadRequest("<p>Login was invalid (server issue)</p>")
 
@@ -167,17 +174,25 @@ class Register(View):
         password = form.cleaned_data["password"]
 
         if User.objects.filter(username=username).exists():
-            return HttpResponseBadRequest("<p>Username already exists!</p>")
+            form.add_error("username", "Username already exists")
+            return render(
+                request,
+                "website/register_form.html",
+                {"form": form},
+                status=HTTPStatus.UNPROCESSABLE_ENTITY,
+            )
 
         usr = User.objects.create_user(username=username, password=password)
         if usr is None:
-            return HttpResponseBadRequest("<p>Error creating user somehow</p>")
+            form.add_error("username", "Unknown error. Please try again.")
+            return render(request, "website/register.html", {"form": form})
 
         usr.save()
 
         usr_login = authenticate(request, username=username, password=password)
         if usr_login is None:
-            return HttpResponseBadRequest("<p>Login invalid</p>")
+            form.add_error("username", "Unknown error. Please try logging in manually.")
+            return render(request, "website/register.html", {"form": form})
         else:
             login(request, usr_login)
             return HttpResponseRedirect("/")

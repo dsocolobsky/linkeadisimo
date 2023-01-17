@@ -2,10 +2,8 @@
 
 {% block content %}
     <article class="main-form">
-        <form action="{% url 'register' %}" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Register">
-        </form>
+        {% include "website/register_form.html" with form=form %}
+
+        <span>Note: We do not store plain-text passwords but beware just in case.</span>
     </article>
 {% endblock %}

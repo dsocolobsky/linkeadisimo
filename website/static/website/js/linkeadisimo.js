@@ -16,3 +16,11 @@ function init_comment(com) {
 }
 
 document.querySelectorAll('.comment').forEach(init_comment);
+
+// HTMX by default will not swap on any errors, allow swapping on 422 for form errors
+document.body.addEventListener('htmx:beforeOnLoad', function (evt) {
+    if (evt.detail.xhr.status === 422) {
+        evt.detail.shouldSwap = true;
+        evt.detail.isError = false;
+    }
+});

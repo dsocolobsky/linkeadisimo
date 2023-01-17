@@ -1,0 +1,5 @@
+<form hx-post="{% url 'login' %}" hx-swap="outerHTML">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Login">
+</form>
