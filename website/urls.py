@@ -14,7 +14,5 @@ urlpatterns = [
         "comment/<int:comment_id>/", views.CommentView.as_view(), name="comment_delete"
     ),
     path("comment/<int:comment_id>/edit/", views.edit_comment, name="comment_edit"),
-    path("upvote", views.upvote, name="upvote"),
-    path("upvote_comment", views.upvote_comment, name="upvote_comment"),
     path("register", views.Register.as_view(), name="register"),
 ]
