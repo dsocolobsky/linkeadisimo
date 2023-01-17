@@ -11,7 +11,7 @@
     <title>Linkeadisimo</title>
 </head>
 
-<body>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 <nav>
     <div class="leftside">
         <a href="/">Homepage</a>
@@ -42,6 +42,7 @@
 </body>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/htmx.org@1.8.4"></script>
 <script src="{% static 'website/js/csrf.js' %}"></script>
 <script src="{% static 'website/js/linkeadisimo.js' %}"></script>
 
