@@ -23,7 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv("LINKEADISIMO_SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# RENDER is present in prod, so if we have that switch DEBUG to False
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
