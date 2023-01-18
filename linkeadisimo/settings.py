@@ -24,10 +24,10 @@ SECRET_KEY = os.getenv("LINKEADISIMO_SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # RENDER is present in prod, so if we have that switch DEBUG to False
-DEBUG = 'RENDER' not in os.environ
+DEBUG = "RENDER" not in os.environ
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
@@ -81,13 +81,12 @@ WSGI_APPLICATION = "linkeadisimo.wsgi.application"
 
 DATABASES = {
     "production": dj_database_url.config(
-        default=os.getenv("DATABASE_URL"),
-        conn_max_age=600
+        default=os.getenv("DATABASE_URL"), conn_max_age=600
     ),
     "development": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": os.path.join(BASE_DIR, "linkeadisimo.db"),
-    }
+    },
 }
 default_database = os.getenv("LINKEADISIMO_DATABASE", "production")
 DATABASES["default"] = DATABASES[default_database]
@@ -129,12 +128,12 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 # Following settings only make sense on production and may break development environments.
-if not DEBUG:    # Tell Django to copy statics to the `staticfiles` directory
+if not DEBUG:  # Tell Django to copy statics to the `staticfiles` directory
     # in your application directory on Render.
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
     # Turn on WhiteNoise storage backend that takes care of compressing static files
     # and creating unique names for each version so they can safely be cached forever.
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 LOGIN_URL = "/login"
 
